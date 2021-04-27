@@ -23,12 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->checkRole() == 'student'){
-          return redirect('student');
-        }else if(Auth::user()->checkRole() == 'university'){
-          return redirect('university');
-        }else{
-          return redirect('sasadmin');
-        }
+      if(Auth::user()->checkRole() == 'tester'){
+        return redirect('tester');
+      }else if(Auth::user()->checkRole() == 'patient'){
+        return redirect('patient');
+      }else{
+        return redirect('testCenterOfficer');
+      }
     }
 }

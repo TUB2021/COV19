@@ -27,12 +27,12 @@ class LoginController extends Controller
      */
     // protected $redirectTo = '/home';
     protected function redirectTo(){
-      if(Auth::user()->checkRole() == 'sasAdmin'){
-        return '/sasadmin';
-      }else if(Auth::user()->checkRole() == 'student'){
-        return '/student';
+      if(Auth::user()->checkRole() == 'tester'){
+        return '/tester';
+      }else if(Auth::user()->checkRole() == 'patient'){
+        return '/patient';
       }else{
-        return '/university';
+        return '/testCenterOfficer';
       }
     }
     /**

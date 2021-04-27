@@ -18,7 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => ['auth', 'tester']], function(){
-  Route::resource('tester', 'TesterController');
+  Route::get('tester', 'TesterController@index');
+  Route::get('tester/patienthistory/{id}', 'TesterController@patienthistory');
+  Route::post('tester/addnewtest', 'TesterController@addNewTest');
+  Route::put('tester/updatetestrecord', 'TesterController@updateTestRecord');
+  Route::put('tester/updatePatient', 'TesterController@updatePatient');
+  Route::delete('tester/deleteTestRecord', 'TesterController@deleteTestRecord');
 });
 
 Route::group(['middleware' => ['auth', 'testCenterOfficer']], function(){
@@ -26,7 +31,7 @@ Route::group(['middleware' => ['auth', 'testCenterOfficer']], function(){
 });
 
 Route::group(['middleware' => ['auth', 'patient']], function(){
-  Route::resource('patient', 'PatientController');
+  Route::get('patient', 'PatientController@index');
 });
 
 Auth::routes();

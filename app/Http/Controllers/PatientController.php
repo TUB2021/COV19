@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
+use App\User;
+use App\Patient;
 class PatientController extends Controller
 {
     /**
@@ -13,7 +15,23 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        try{
+            $id = Auth::id();
+            $patient = Patient::where('user_id', $id)->first();
+            $patientHistory = Patient::where('user_id', $id)->get();
+            $user = User::where('id', $id)->first();
+            $tester = User::where('users.id', $patient->tester_id)
+            ->select(
+                'users.name', 
+                'test_centers.name as test_center_name', 
+              )
+              ->join('testers', 'testers.user_id', '=', 'users.id')
+              ->join('test_centers', 'test_centers.id', '=', 'testers.test_center_id')
+              ->first();
+            return view("patient.patienthistory", compact('patient', 'patientHistory','user', 'tester'));
+        }catch(Exception $e){
+            return $e;
+        }
     }
 
     /**
