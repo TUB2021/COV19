@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth', 'tester']], function(){
 });
 
 Route::group(['middleware' => ['auth', 'testCenterOfficer']], function(){
-  Route::resource('testCenterOfficer', 'TestOfficerController');
+  Route::get('testCenterOfficer', 'TestOfficerController@index');
 });
 
 Route::group(['middleware' => ['auth', 'patient']], function(){

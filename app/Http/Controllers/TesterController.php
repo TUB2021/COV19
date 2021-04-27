@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Patient;
+use App\Tester;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,9 +26,12 @@ class TesterController extends Controller
                 'role' => "patient"
             ]);
 
+            $tester = Tester::where("user_id", Auth::id())->first();
+
             $patientData = Patient::create([
                 'user_id' => $user->id,
                 'tester_id' => Auth::id(),
+                'test_location_id' => $tester->test_center_id,
                 'patient_type' => $data['patientType'],
                 'symptomps'  => $data['symptomps'],
                 'status'  => 'pending'
@@ -46,7 +50,10 @@ class TesterController extends Controller
     public function patienthistory($id){
         try{
             $patient = Patient::where('user_id', $id)->first();
-            $patientHistory = Patient::where('user_id', $id)->get();
+            $patientHistory = Patient::where('patients.user_id', $id)
+            ->select('patients.*', 'test_centers.name as test_location_name')
+            ->join('test_centers', 'test_centers.id', '=', 'patients.test_location_id')
+            ->get();
             $user = User::where('id', $id)->first();
             $tester = User::where('users.id', $patient->tester_id)
             ->select(
@@ -86,9 +93,12 @@ class TesterController extends Controller
     public function updateTestRecord(Request $request){
         $data = $request->input();
         try{
+            $tester = Tester::where("user_id", Auth::id())->first();
+
             $patientData = Patient::create([
                 'user_id' => $data['user_id'],
                 'tester_id' => Auth::id(),
+                'test_location_id' => $tester->test_center_id,
                 'patient_type' => $data['patientType'],
                 'symptomps'  => $data['symptomps'],
                 'status'  => $data['status']

@@ -15,7 +15,7 @@ class testCenterOfficer
      */
     public function handle($request, Closure $next)
     {
-      if (Auth::check() && Auth::user()->checkRole() == "testCenterOfficer"){
+      if (Auth::check() && Auth::user()->checkRole() == "testCenterManager" || Auth::user()->checkRole() == "tester"){
         return $next($request);
       }
         return redirect('/');

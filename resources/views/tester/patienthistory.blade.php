@@ -9,7 +9,7 @@
             <p>Name : {{ $user->name }}</p>
             <p>Email : {{ $user->email }}</p>
             <p>Tester : {{ $tester->name }}</p>
-            <p>Test Location : {{ $tester->test_center_name }}</h3>
+            <p>Tester Assigned Location : {{ $tester->test_center_name }}</h3>
             <br>
             <button type="button" style="margin-top: 20px; width: 100%" class="btn btn-primary" data-toggle="modal" data-target="#update">
                 Update
@@ -22,6 +22,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Patient Type</th>
                     <th scope="col">Symptomps</th>
+                    <th scope="col">Test Location</th>  
                     <th scope="col">Test Status</th>
                     <th scope="col">Created at</th>
                     <th scope="col">Updated at</th>
@@ -33,6 +34,7 @@
                         <th scope="row">{{$key+1}}</th>
                         <td>{{$patientHistory->patient_type}}</td>
                         <td>{{$patientHistory->symptomps}}</td>
+                        <td>{{$patientHistory->test_location_name}}</td>
                         <td>{{$patientHistory->status}}</td>
                         <td>{{$patientHistory->created_at}}</td>
                         <td>{{$patientHistory->updated_at}}</td>

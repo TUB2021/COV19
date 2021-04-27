@@ -18,7 +18,10 @@ class PatientController extends Controller
         try{
             $id = Auth::id();
             $patient = Patient::where('user_id', $id)->first();
-            $patientHistory = Patient::where('user_id', $id)->get();
+            $patientHistory = Patient::where('patients.user_id', $id)
+            ->select('patients.*', 'test_centers.name as test_location_name')
+            ->join('test_centers', 'test_centers.id', '=', 'patients.test_location_id')
+            ->get();
             $user = User::where('id', $id)->first();
             $tester = User::where('users.id', $patient->tester_id)
             ->select(

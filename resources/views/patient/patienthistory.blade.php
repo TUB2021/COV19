@@ -10,6 +10,7 @@
             <th scope="col">#</th>
             <th scope="col">Patient Type</th>
             <th scope="col">Symptomps</th>
+            <th scope="col">Test Location</th>
             <th scope="col">Test Status</th>
             <th scope="col">Created at</th>
             <th scope="col">Updated at</th>
@@ -21,6 +22,7 @@
                 <th scope="row">{{$key+1}}</th>
                 <td>{{$patientHistory->patient_type}}</td>
                 <td>{{$patientHistory->symptomps}}</td>
+                <td>{{$patientHistory->test_location_name}}</td>
                 <td>{{$patientHistory->status}}</td>
                 <td>{{$patientHistory->created_at}}</td>
                 <td>{{$patientHistory->updated_at}}</td>

@@ -19,6 +19,8 @@ class CreatePatientsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('tester_id');
             $table->foreign('tester_id')->references('id')->on('users');
+            $table->unsignedBigInteger('test_location_id');
+            $table->foreign('test_location_id')->references('id')->on('test_centers');
             $table->string('patient_type');
             $table->string('symptomps');
             $table->string('status');
